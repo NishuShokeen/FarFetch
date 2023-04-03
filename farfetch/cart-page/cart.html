@@ -1,0 +1,403 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart section</title>
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href=".../footer/fw17_0093foot.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #navbar img {
+            width: 100%;
+            margin: 0;
+            ;
+        }
+
+        .modal {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 0;
+            display: none;
+        }
+
+        .tab-form {
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%;
+            max-width: 400px;
+            box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.08);
+            height: 530px;
+            border-radius: 10px;
+            background-color: white;
+            opacity: 1;
+        }
+
+        .tab-form .tab-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .tab-form .tab-header>div {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .tab-form .tab-header>div.active {
+            border-bottom: 1px solid #222;
+            color: #222;
+        }
+
+        .tab-form .tab-body {
+            position: relative;
+            min-height: 360px;
+            overflow: hidden;
+        }
+
+        .tab-form .tab-body>div {
+            position: absolute;
+            width: 100%;
+            top: -150vh;
+            opacity: 0;
+            padding: 5px 25px;
+            transition: opacity 300ms ease-in-out 0ms;
+        }
+
+        .tab-form .tab-body>div.active {
+            top: 0px;
+            opacity: 1;
+            transition: opacity 300ms ease-in-out 0ms;
+        }
+
+        .tab-form .tab-body>div h2 {
+            font-size: 25px;
+            color: #222;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tab-form .tab-body>div .form-input {
+            margin: 13px 0px;
+        }
+
+        .tab-form .tab-body>div .form-input label {
+            display: block;
+            font-size: 15px;
+        }
+
+        .tab-form .tab-body>div .form-input input {
+            width: 100%;
+            margin-top: 5px;
+            font-size: 15px;
+            padding: 8px;
+            border: 1px solid grey;
+            border-radius: 10px;
+            height: 43px;
+        }
+
+        .tab-form .tab-body>div .form-input button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 15px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background: #222;
+            color: #f5f5f5;
+            font-weight: 600;
+            border-radius: 7px;
+            height: 43px;
+        }
+
+        .close {
+            position: absolute;
+            top: 0;
+            right: 14px;
+            font-size: 28px;
+            transform: rotate(45deg);
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--Navbar-->
+    <div id="navbar">
+        <a href="../index.html"> <img src="image.png" alt=""></a>
+    </div>
+
+    <!-- signup and login pop up -->
+    <div class="modal">
+        <div class="tab-form">
+
+            <!--close-->
+            <div style="margin-bottom: 20px;">
+                <div class="close">+</div>
+            </div>
+            <div class="tab-header">
+                <div class="active">SIGN IN</div>
+                <div>I'M NEW HERE</div>
+            </div>
+            <div class="tab-body">
+                <div class="login active">
+                    <div class="form-input">
+                        <label for="">Email address</label>
+                        <input id="loginemail" type="text">
+                    </div>
+                    <div class="form-input">
+                        <label for="">Password</label>
+                        <input id="loginpass" type="password">
+                    </div>
+                    <p style="font-size: 14px;">☑ Keep me signed in.</p>
+                    <div class="form-input">
+                        <button id="login">Sign In</button>
+                    </div>
+                </div>
+                <div class="signup">
+                    <div class="form-input">
+                        <label for="">Name</label>
+                        <input type="text" placeholder="Enter username">
+                    </div>
+                    <div class="form-input">
+                        <label for="">Email address</label>
+                        <input type="email" id="signupemail" placeholder="Enter email">
+                    </div>
+                    <div class="form-input">
+                        <label for="">Password</label>
+                        <input type="password" id="signuppass" placeholder="Enter password">
+                    </div>
+                    <p style="font-size: 14px;">By registering, you agree with our Terms & Conditions and Privacy and
+                        Cookie
+                        Policy.
+                    </p>
+                    <div class="form-input">
+                        <button id="signup">Register</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--cart page body-->
+
+    <p id="heading">SHOPPING BAG</p>
+    <div id="main">
+        <div class="items">
+            <table>
+                <tbody id="body">
+
+                </tbody>
+            </table>
+        </div>
+        <div id="summary">
+            <h3>Summary</h3>
+            <div class="cash">
+                <p>Subtotal</p>
+                <div style="display: flex;">
+                    <p>$&nbsp;</p>
+                    <p id="totalprice"></p>
+                </div>
+            </div>
+            <div class="cash">
+                <p>Delivery</p>
+                <p id="delivery">$ 600</p>
+            </div>
+            <hr>
+            <div class="cash">
+                <p>Total</p>
+                <p id="totalcash"></p>
+            </div>
+            <button id="checkout">Go To Checkout</button>
+        </div>
+    </div>
+
+
+    <!-- Recommandation section -->
+
+    <div id="rec">
+        <p style="font-size: 23px;">Recommandation</p>
+        <button id="shop">Shop Now</button>
+    </div>
+
+    <div class="wrapper">
+        <figure>
+            <div class="hover-animation">
+                <img src="https://cdn-images.farfetch-contents.com/18/57/27/30/18572730_40035494_600.jpg" alt=""
+                    class="img-back">
+                <img src="https://cdn-images.farfetch-contents.com/18/57/27/30/18572730_40034933_600.jpg" alt=""
+                    class="img-front">
+            </div>
+
+            <figcaption>
+                <h3>Rolex</h3>
+                <p>pre-owned Cosmograph Daytona Arabic 40mm</p>
+            </figcaption>
+        </figure>
+        <figure>
+            <div class="hover-animation">
+                <img src="https://cdn-images.farfetch-contents.com/16/71/00/42/16710042_35761183_600.jpg" alt=""
+                    class="img-back">
+                <img src="https://cdn-images.farfetch-contents.com/16/71/00/42/16710042_35759603_600.jpg" alt=""
+                    class="img-front">
+            </div>
+
+            <figcaption>
+                <h3>Jacquemus</h3>
+                <p>Le Pichoto mini bag</p>
+            </figcaption>
+        </figure>
+        <figure>
+            <div class="hover-animation">
+                <img src="https://cdn-images.farfetch-contents.com/17/98/33/30/17983330_39304618_600.jpg" alt=""
+                    class="img-back">
+                <img src="https://cdn-images.farfetch-contents.com/17/98/33/30/17983330_39304625_600.jpg" alt=""
+                    class="img-front">
+            </div>
+
+            <figcaption>
+                <h3>Pas Normal Studios</h3>
+                <p>Escapism packable down jacket</p>
+            </figcaption>
+        </figure>
+
+        <figure>
+            <div class="hover-animation">
+                <img src="https://cdn-images.farfetch-contents.com/18/05/66/09/18056609_38273965_600.jpg" alt=""
+                    class="img-back">
+                <img src="https://cdn-images.farfetch-contents.com/18/05/66/09/18056609_38273966_600.jpg" alt=""
+                    class="img-front">
+            </div>
+
+            <figcaption>
+                <h3>Y-3</h3>
+                <p>logo-patch zipped backpack
+                </p>
+            </figcaption>
+        </figure>
+        <figure>
+            <div class="hover-animation">
+                <img src="https://cdn-images.farfetch-contents.com/16/72/91/52/16729152_33569235_600.jpg" alt=""
+                    class="img-back">
+                <img src="https://cdn-images.farfetch-contents.com/16/72/91/52/16729152_33569234_1000.jpg" alt=""
+                    class="img-front">
+            </div>
+
+            <figcaption>
+                <h3>Maison Kitsuné</h3>
+                <p>fox-patch polo shirt</p>
+            </figcaption>
+        </figure>
+
+    </div>
+
+    <!--footer-->
+    <div id="footer"></div>
+
+</body>
+
+</html>
+<script src="cart.js" type="module"></script>
+<!-- <script src="cart2.js"></script> -->
+<script src=".../footer/fw17_0093foot.js"></script>
+
+
+
+<!--Signup and login js-->
+
+<script>
+    let tab = document.querySelector(".tab-form");
+    let tabHeader = document.querySelector(".tab-header");
+    let tabHeaderElements = tab.querySelectorAll(".tab-header > div");
+    let tabBody = tab.querySelector(".tab-body");
+    let tabBodyElements = tab.querySelectorAll(".tab-body > div");
+
+    console.log(tabBodyElements);
+
+    /*----login tab----*/
+    console.log(tabHeaderElements);
+    let login = tabHeaderElements[1];
+    login.addEventListener("click", function () {
+        tabBodyElements[1].classList.add("active");
+        tabBodyElements[0].classList.remove("active");
+        tabHeaderElements[1].classList.add("active");
+        tabHeaderElements[0].classList.remove("active");
+    });
+
+    /*----Signup tab----*/
+
+    let signup = tabHeaderElements[0];
+    signup.addEventListener("click", function () {
+        tabBodyElements[0].classList.add("active");
+        tabBodyElements[1].classList.remove("active");
+        tabHeaderElements[0].classList.add("active");
+        tabHeaderElements[1].classList.remove("active");
+    });
+
+    /*----Login functionality-----*/
+
+    let signupbtn = document.querySelector("#signup");
+    signupbtn.addEventListener("click", function () {
+        let email = document.querySelector("#signupemail").value;
+        let pass = document.querySelector("#signuppass").value;
+        let obj = {
+            email: email,
+            pass: pass,
+        };
+        localStorage.setItem("userData", JSON.stringify(obj));
+        alert("Signup Successful!")
+    });
+
+    /*----Login functionality-----*/
+
+    let loginbtn = document.querySelector("#login");
+    loginbtn.addEventListener("click", function () {
+        let obj = JSON.parse(localStorage.getItem("userData"));
+        let email = document.querySelector("#loginemail").value;
+        let pass = document.querySelector("#loginpass").value;
+        if (obj == null) alert("User does not Exist⛔")
+        else if (email != obj.email) alert("User does not Exist⛔");
+        else if (pass != obj.pass) alert("Wrong Credentials❌");
+        else {
+            alert("Login Successful😀");
+            document.location.href = "../address.html";
+        }
+    });
+
+
+    /*-----Checkout functionality-----*/
+
+    document.querySelector("#checkout").addEventListener("click", function () {
+        document.querySelector(".modal").style.display = "flex"
+    })
+
+
+    /*------close functionality-----*/
+    document.querySelector(".close").addEventListener("click", function () {
+        document.querySelector(".modal").style.display = "none"
+    });
+
+</script>
+
+
+
+<script type="module">
+    import footer from ".../footer/fw17_0093foot.js"
+    document.querySelector("#footer").innerHTML = footer()
+</script>
